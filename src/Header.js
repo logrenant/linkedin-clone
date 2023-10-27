@@ -10,9 +10,27 @@ import {
     Notifications,
     SupervisorAccount
 } from "@mui/icons-material";
+import {useDispatch} from "react-redux";
+import {logout} from "./features/userSlice";
+import {auth} from "./firebase";
+import { signOut } from "firebase/auth";
 
 
 function Header() {
+
+    const dispatch = useDispatch();
+
+    const logoutOfApp = () => {
+        dispatch(logout());
+        signOut(auth)
+            .then(() => {
+                console.log("User logged out");
+            })
+            .catch((error) => {
+                console.error("Error logging out:", error);
+            });
+    }
+
     return (
         <div className="header">
             <div className="header_left">
@@ -24,17 +42,20 @@ function Header() {
                 </svg>
                 <div className="header_search">
                     <Search/>
-                    <input type="text"/>
+                    <input placeholder="Search" type="text"/>
                 </div>
             </div>
-
             <div className="header_right">
                 <HeaderOption Icon={Home} title="home"/>
                 <HeaderOption Icon={SupervisorAccount} title="My Network"/>
                 <HeaderOption Icon={BusinessCenter} title="Jobs"/>
                 <HeaderOption Icon={Chat} title="Messaging"/>
                 <HeaderOption Icon={Notifications} title="Notification"/>
-                <HeaderOption avatar="https://xsgames.co/randomusers/avatar.php?g=male" title="Me"/>
+                <HeaderOption
+                    avatar={true}
+                    onClick={logoutOfApp}
+                    title="Me"
+                />
             </div>
         </div>
     )

@@ -1,8 +1,7 @@
 // firebase.js
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth'
-
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAQtWN4QIb5Zkz6InAdjNbIm_f7tF9IQ9Y",
@@ -16,11 +15,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Firestore koleksiyonunu başlatıyoruz
 const postsCollection = collection(db, 'posts');
 
-// Auth modülünü başlatıyoruz
-const auth = getAuth(app)
+const auth = getAuth(app);
 
 
 export { db, postsCollection, auth };
